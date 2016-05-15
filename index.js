@@ -16,6 +16,7 @@ function Proxy(conf) {
     this.downstreamKbps = conf && conf.downstreamKbps;
     this.upstreamKbps = conf && conf.upstreamKbps;
     this.latency = conf && conf.latency;
+    this.httpProxy = conf && conf.httpProxy;
 
     /*
      *  downstreamKbps - Sets the downstream kbps
@@ -76,6 +77,10 @@ Proxy.prototype = {
         }
         if (typeof(port) === 'number') {
             postData = 'port=' + port;
+        }
+        
+        if(this.httpProxy){
+            postData += "&httpProxy=" + this.httpProxy;
         }
 
         this.doReq('POST', '/proxy', postData, function(err, data) {
